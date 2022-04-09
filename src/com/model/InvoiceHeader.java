@@ -1,76 +1,82 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author M E T R O
- */
 public class InvoiceHeader {
     private int invNum;
+    private String customerName;
     private Date invDate;
-    private String custName;
-    private double invTotal;
-    private ArrayList<InvoiceLine> lines ; 
+    private ArrayList<InvoiceLine> lines;  
 
-
-    public InvoiceHeader(int invNum, Date invDate, String custName) {
+    public InvoiceHeader(int invNum, String customerName, Date invDate) {
         this.invNum = invNum;
+        this.customerName = customerName;
         this.invDate = invDate;
-        this.custName = custName;
-    }
-
-    public int getInvNum() {
-        return invNum;
-    }
-
-    public void setInvNum(int num) {
-        this.invNum = invNum;
+        //this.lines = new ArrayList<>();   // eager creation
     }
 
     public Date getInvDate() {
         return invDate;
     }
 
-    public void setInvDate(Date date) {
+    public void setInvDate(Date invDate) {
         this.invDate = invDate;
     }
 
-    public String getCustName() {
-        return custName;
+    public int getInvNum() {
+        return invNum;
     }
 
-    public void setCustName(String custName) {
-        this.custName = custName;
+    public void setInvNum(int invNum) {
+        this.invNum = invNum;
     }
 
-    public double getInvTotal() {
-        return invTotal;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setInvTotal(double invTotal) {
-        this.invTotal = invTotal;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    @Override
+    public String toString() {
+        String str = "InvoiceHeader{" + "invNum=" + invNum + ", customerName=" + customerName + ", invDate=" + invDate + '}';
+        for (InvoiceLine line : getLines()) {
+            str += "\n\t" + line;
+        }
+        return str;
     }
 
     public ArrayList<InvoiceLine> getLines() {
         if (lines == null)
-               lines = new ArrayList<>();
+            lines = new ArrayList<>();  // lazy creation
         return lines;
     }
 
     public void setLines(ArrayList<InvoiceLine> lines) {
         this.lines = lines;
     }
+
+    public double getInvTotal() {
+        double total = 0.0;
+        for (InvoiceLine line : getLines()) {
+            total += line.getLineTotal();
+        }
+        return total;
+    }
     
-    public void addLine(InvoiceLine line){
+    public void addInvLine(InvoiceLine line) {
         getLines().add(line);
-        setInvTotal(getInvTotal() + line.getItemTotal());  
+    }
     
+    public String getDataAsCSV() {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        return "" + getInvNum() + "," + df.format(getInvDate()) + "," + getCustomerName();
     }
     
 }

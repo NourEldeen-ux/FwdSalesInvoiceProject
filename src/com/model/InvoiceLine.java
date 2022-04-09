@@ -1,28 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.model;
 
-/**
- *
- * @author M E T R O
- */
 public class InvoiceLine {
     private String itemName;
     private double itemPrice;
-    private int count;
-    private double itemTotal;
-    private InvoiceHeader inoviceHeader;
+    private int itemCount;
+    private InvoiceHeader header;
 
-    public InvoiceLine(String itemName, double itemPrice, int count, InvoiceHeader inoviceHeader) {
+    public InvoiceLine(String itemName, double itemPrice, int itemCount, InvoiceHeader header) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-        this.count = count;
-        this.inoviceHeader = inoviceHeader;
-        this.setItemTotal(this.count * this.itemPrice);
+        this.itemCount = itemCount;
+        this.header = header;
     }
-
+    
     public String getItemName() {
         return itemName;
     }
@@ -35,33 +26,36 @@ public class InvoiceLine {
         return itemPrice;
     }
 
-    public void setItemPrice(double price) {
+    public void setItemPrice(double itemPrice) {
         this.itemPrice = itemPrice;
     }
 
-    public int getCount() {
-        return count;
+    public int getItemCount() {
+        return itemCount;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
     }
 
-    public double getItemTotal() {
-        return itemTotal;
+    public InvoiceHeader getHeader() {
+        return header;
     }
 
-    public void setItemTotal(double itemTotal) {
-        this.itemTotal = itemTotal;
+    public void setHeader(InvoiceHeader header) {
+        this.header = header;
     }
 
-    public InvoiceHeader getInovice() {
-        return inoviceHeader;
+    @Override
+    public String toString() {
+        return "InvoiceLine{" + "itemName=" + itemName + ", itemprice=" + itemPrice + ", itemCount=" + itemCount + '}';
     }
-
-    public void setInovice(InvoiceHeader inovice) {
-        this.inoviceHeader = inoviceHeader;
-    }
-
     
+    public double getLineTotal() {
+        return itemCount * itemPrice;
+    }
+    
+    public String getDataAsCSV() {
+        return "" + getHeader().getInvNum() + "," + getItemName() + "," + getItemPrice() + "," + getItemCount();
+    }
 }
