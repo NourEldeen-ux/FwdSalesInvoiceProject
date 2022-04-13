@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Sales_Invoices_Generator_Project">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Sales_Invoices_Generator_Project.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
